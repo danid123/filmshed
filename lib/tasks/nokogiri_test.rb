@@ -4,23 +4,34 @@ require 'open-uri'
 require 'active_record'
 require 'pg'
 
+ 
+domain_url = "http://prod3.agileticketing.net/websales/pages/"
+listings = ".Item , .ViewLink"
+days = ".DaysRow td"
+title_field = ".Name"
+start_day = ".Date"
+time_field = ".Time , span"
+url_field = ".ViewLink"
+ 
 url = "http://prod3.agileticketing.net/websales/pages/list.aspx?epguid=5e3ea987-8f29-408f-ad74-5c32388b1f83&"
 doc = Nokogiri::HTML(open(url))
-doc.css(".DaysRow td").each do |day|
-	
-	day.css(".Item").each do |event|
-		event = Event.new
-		event.title = event.at_css(".Name").text
-		start_day = day.at_css(".Date").text
-		event.start_date = "06/"+start_day+"/2014"
-		event.start_time = event.at_css(".Time , span").text
-		event.url = "http://prod3.agileticketing.net/websales/pages/"+event.at_css(".ViewLink")[:href]
-		event.save
-	  
-	  
-	  
-	  
-	  #puts "#{title} - #{start_date} - #{start_time} - #{url}"
-	end
 
+doc.css(days).each do |day|
+	doc.css(listings).each do |event|
+		if event 
+			if event.at_css(title_field)
+	  		title = (event.at_css(title_field).text || 'title unknown') 
+	  	end
+	  	if event.at_css(start_day)
+	  		start_date = "06/"+(event.at_css(start_day).text)+"/2014"
+	  	end
+	  	if event.at_css(time_field)
+	  		start_time = (event.at_css(time_field).text || nil) 
+	  	end
+	  	if event.at_css(url_field)
+	  		url = domain_url + event.at_css(url_field)[:href] if event.at_css(url_field)
+	  	end
+	  end
+	  puts "#{title} - #{start_date} - #{start_time} - #{url}"
+	end
 end
