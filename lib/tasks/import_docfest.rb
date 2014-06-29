@@ -38,7 +38,7 @@ calendar.css(days).each do |day|
 		  		duration_nodes = film.css(duration_field)
 
 		  		duration = ((duration_nodes.length != 0 && duration_nodes[1].text) || nil)
-		  		# puts "#{event_name} - #{start_date} - #{start_time} - #{duration} - #{film_url}"
+		  		puts "#{event_name} - #{start_date} - #{start_time} - #{duration} - #{film_url}"
 		  		
 		  	end
 		end

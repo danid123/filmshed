@@ -4,7 +4,10 @@ require 'open-uri'
 require 'active_record'
 require 'pg'
 
-task :docfest  => :environment do
+namespace :db do
+   desc "Fill database with listings"
+   Event.new
+   Event.save
    puts Event.all.count
 end
 
