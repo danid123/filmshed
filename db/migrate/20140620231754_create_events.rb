@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.time :start_time
       t.integer :duration
       t.text :description
-      t.string :url
+      t.string :film_url
       t.string :image_url
 
       t.timestamps

@@ -29,7 +29,7 @@ calendar.css(days).each do |day|
 			if event.at_css(title_field)
 				
 				# setting default values for fields
-				title = (event.at_css(title_field).text || 'title unknown') 
+				event_name = (event.at_css(title_field).text || 'title unknown') 
 		  		start_time = (event.at_css(time_field).text || nil) 
 		  		film_url = domain_url + event.at_css(url_field)[:href] if event.at_css(url_field)
 		  		film = Nokogiri::HTML(open(film_url))
@@ -38,7 +38,7 @@ calendar.css(days).each do |day|
 		  		duration_nodes = film.css(duration_field)
 
 		  		duration = ((duration_nodes.length != 0 && duration_nodes[1].text) || nil)
-		  		# puts "#{title} - #{start_date} - #{start_time} - #{duration} - #{film_url}"
+		  		# puts "#{event_name} - #{start_date} - #{start_time} - #{duration} - #{film_url}"
 		  		
 		  	end
 		end

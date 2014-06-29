@@ -4,6 +4,10 @@ require 'open-uri'
 require 'active_record'
 require 'pg'
 
+task :docfest  => :environment do
+   puts Event.all.count
+end
+
 task :import_docfest => :environment do 
  
 	domain_url = "http://prod3.agileticketing.net/websales/pages/"
