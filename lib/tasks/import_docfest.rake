@@ -6,9 +6,11 @@ require 'pg'
 
 namespace :db do
    desc "Fill database with listings"
-   Event.new
-   Event.save
-   puts Event.all.count
+   task :add_event do
+	   Event.new
+	   Event.save
+	   puts Event.all.count
+	end
 end
 
 task :import_docfest => :environment do 
