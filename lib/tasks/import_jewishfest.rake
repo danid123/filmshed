@@ -7,7 +7,6 @@ require 'pg'
 require 'date'
 
 task :import_docfest => :environment do 
- 
 	domain_url = "http://prod3.agileticketing.net/websales/pages/"
 	events = ".Item , .ViewLink"
 	days = ".DaysRow td"
@@ -20,12 +19,9 @@ task :import_docfest => :environment do
 	calendar_url = "http://prod3.agileticketing.net/websales/pages/list.aspx?epguid=dcc5d746-1962-42a1-a663-d2ede30f0344&mdyr="+start_day
 	start_date = start_day
 
-
 	while start_day < end_day
-		
 		start_date += 1
 		calendar = Nokogiri::HTML(open(calendar_url))
-
 		calendar.css(days).each do |day|
 			if day.css(events).count != 0
 				day.css(events).each do |event|
